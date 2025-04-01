@@ -40,7 +40,13 @@ export default function Editor() {
   };
 
   return (
-    <Box maxW="700px" mx="auto" mt={10} textAlign="center">
+    <Box
+      maxW="700px"
+      mx="auto"
+      mt={10}
+      textAlign="center"
+      minHeight="calc(100vh - 205px)"
+    >
       <Heading my="40px">Blog Editor</Heading>
       <BlogGenerator blogData={handleBlogData} />
       <Flex maxW="700px" mx="auto" mt={6} textAlign="left" wrap="wrap">
@@ -56,7 +62,7 @@ export default function Editor() {
       </Flex>
 
       {content && (
-        <Button colorScheme="blue" mt={6} onClick={handleSaveBlog}>
+        <Button colorScheme="blue" mt={6} mb={"60px"} onClick={handleSaveBlog}>
           Save Blog
         </Button>
       )}

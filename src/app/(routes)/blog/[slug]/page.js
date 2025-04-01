@@ -70,7 +70,7 @@ export default function Blog() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <Box minH="100vh" py={12}>
+        <Box minH="100vh" py={12} minHeight="calc(100vh - 164px)">
           <Container maxW="4xl">
             <VStack spacing={8} align="start">
               {/* Header */}

@@ -77,7 +77,7 @@ export default function Dashboard() {
   // ]);
 
   return (
-    <Container maxW="container.xl" py={10}>
+    <Container maxW="container.xl" py={10} minHeight="calc(100vh - 164px)">
       <VStack spacing={6} align="stretch">
         {blogs.length > 0 ? (
           <VStack spacing={4} align="stretch">
