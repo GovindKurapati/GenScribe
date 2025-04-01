@@ -1,0 +1,7 @@
+.ProseMirror:focus {
+  outline: none;
+}
+/* Hide default ProseMirror menu bar */
+.ProseMirror-menubar {
+  display: none !important;
+}

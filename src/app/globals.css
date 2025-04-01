@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -39,4 +39,25 @@ a {
   html {
     color-scheme: dark;
   }
+} */
+
+p {
+  margin-bottom: 15px;
+}
+
+ul > li {
+  margin-bottom: 5px;
+}
+
+.tiptap-editor .ProseMirror {
+  outline: none !important;
+}
+
+.tiptap-editor .ProseMirror:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: inherit !important;
+}
+.ProseMirror:focus {
+  outline: none;
 }
