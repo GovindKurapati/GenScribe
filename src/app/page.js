@@ -131,7 +131,8 @@ export default function Home() {
     //     <AuthButton />
     //   </Box>
     // </Box>
-    <>
+
+    <Box minHeight="calc(100vh - 220px)">
       <Box
         _before={{
           background:
@@ -141,7 +142,7 @@ export default function Home() {
       >
         {/* <Toaster /> */}
 
-        <Container maxW="container.xl">
+        <Container maxW="container.xl" mt={"50px"}>
           <Grid
             templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
             gap={8}
@@ -230,11 +231,11 @@ export default function Home() {
       </Box>
 
       {/* Features Section */}
-      <Box py={16}>
+      <Box pt={16}>
         <Container maxW="container.xl">
-          <VStack spacing={12}>
-            <VStack spacing={2} textAlign="center" mb={8}>
-              <Heading as="h2" fontSize="3xl">
+          <VStack>
+            <VStack spacing={2} textAlign="center" mb={2}>
+              <Heading as="h2" fontSize="3xl" mb={2}>
                 What You Can Create
               </Heading>
               <Text fontSize="lg" maxW="container.md" mx="auto">
@@ -272,7 +273,7 @@ export default function Home() {
           </VStack>
         </Container>
       </Box>
-    </>
+    </Box>
   );
 }
 
