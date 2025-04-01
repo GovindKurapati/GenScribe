@@ -174,12 +174,6 @@ export const Navbar = () => {
           </Flex>
 
           <HStack spacing={4}>
-            {user?.name ? (
-              <Text m="0px" p="0px" fontWeight="medium">
-                Hello, {user.name}
-              </Text>
-            ) : null}
-
             <ColorModeButton />
             <AuthButton />
           </HStack>
