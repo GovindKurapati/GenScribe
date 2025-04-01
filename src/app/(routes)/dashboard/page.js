@@ -99,7 +99,6 @@ export default function Dashboard() {
                 w="full"
                 transition="all 0.2s"
                 _hover={{
-                  bg: "gray.50",
                   transform: "scale(1.01)",
                   boxShadow: "lg",
                   cursor: "pointer",
