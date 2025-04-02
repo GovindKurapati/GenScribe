@@ -40,7 +40,6 @@ export default function Blog() {
     if (!slug || !email) return;
     const fetchData = async () => {
       const data = await filterBlogs(email, slug);
-      console.log(data);
       setBlogData(data[0]);
     };
     fetchData();

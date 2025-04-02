@@ -29,7 +29,6 @@ const useBlogStore = create((set) => ({
         ...doc.data(),
       }))
       .filter((blog) => blog.userEmail == userEmail && blog.id == blogId);
-    console.log(filteredBlogs);
     return filteredBlogs;
   },
 

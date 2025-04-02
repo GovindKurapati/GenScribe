@@ -19,7 +19,6 @@ export default function AuthButton() {
           email: user.email,
           photo: user.photoURL,
         });
-        console.log("User:", getUser());
       } else {
         setUser(null);
       }

@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 
 export async function POST(request, response) {
   const { data } = await request.json();
-  console.log(data);
   const topic = data.topic || null;
   const tone = data.tone || "Informative";
   const wordLimit = data.wordLimit || 500;
@@ -54,12 +53,7 @@ export async function POST(request, response) {
 
     const blogContent = response.data.candidates[0].content.parts[0].text;
 
-    console.log("Blog content generated:", blogContent);
     return NextResponse.json({ content: blogContent });
-    // return new Response(JSON.stringify({ content: blogContent }), {
-    //   status: 200,
-    //   headers: { "Content-Type": "application/json" },
-    // });
   } catch (error) {
     console.error("Error calling Gemini API:", error);
     return new Response(

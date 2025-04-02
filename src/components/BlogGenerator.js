@@ -29,7 +29,6 @@ export const BlogGenerator = ({ blogData }) => {
         wordLimit: wordLength * 10,
       };
       const response = await axios.post("/api/blog", { data });
-      console.log("Blog generated:", response.data.content);
       blogData(response.data.content);
     } catch (error) {
       console.error("Error generating blog:", error);

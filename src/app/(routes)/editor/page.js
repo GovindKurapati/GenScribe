@@ -29,7 +29,6 @@ export default function Editor() {
   const handleBlogData = (data) => {
     setContent("-");
     const formattedContent = formatMarkdown(data);
-    console.log(typeof formattedContent);
     setContent(formattedContent);
   };
   const formatMarkdown = (text) => {
