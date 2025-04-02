@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, Button, Input, Flex, Textarea, Heading } from "@chakra-ui/react";
 import useAuthStore from "@/store/authStore";
 import useBlogStore from "@/store/blogStore";
@@ -13,12 +13,18 @@ import ProseMirrorEditor from "@/components/PoseMirrorEditor";
 
 export default function Editor() {
   const { user } = useAuthStore();
+  const { getUser } = useAuthStore();
+  const { email } = getUser() || "";
   const { addBlog } = useBlogStore();
   const router = useRouter();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [summary, setSummary] = useState("");
+
+  useEffect(() => {
+    if (!email) router.push("/");
+  }, [email]);
 
   const handleSaveBlog = async () => {
     if (!user) return alert("Please log in first!");
