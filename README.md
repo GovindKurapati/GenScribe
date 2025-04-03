@@ -23,8 +23,8 @@ A powerful AI-assisted blog generator with a rich text editor.
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/ai-blog-generator.git
-cd ai-blog-generator
+git clone https://github.com/GovindKurapati/GenScribe.git
+cd GenScribe
 ```
 
 ### 2️⃣ Install Dependencies

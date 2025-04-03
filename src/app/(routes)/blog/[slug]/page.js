@@ -27,7 +27,7 @@ export default function Blog() {
   const { slug } = useParams();
   const { filterBlogs } = useBlogStore();
   const { getUser } = useAuthStore();
-  const { email, name } = getUser() || "";
+  const { email, name, photo } = getUser() || "";
   const [blogData, setBlogData] = useState(null);
 
   const formatDate = (dateString) => {
@@ -81,11 +81,15 @@ export default function Blog() {
 
               {/* Author and date */}
               <HStack spacing={2} gap={4}>
-                <Avatar.Root size={"md"} key={"size"}>
+                {/* <Avatar.Root >
                   <Avatar.Fallback name="Segun Adebayo" />
                   <Avatar.Image
                     src={`https://ui-avatars.com/api/?name=${name}`}
                   />
+                </Avatar.Root> */}
+                <Avatar.Root size={"md"} key={"size"}>
+                  <Avatar.Fallback name={name} />
+                  <Avatar.Image src={photo} />
                 </Avatar.Root>
                 <VStack align="start" spacing={"0px"} gap={"0px"}>
                   <Text m="0px" fontWeight="medium">

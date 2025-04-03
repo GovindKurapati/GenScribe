@@ -5,30 +5,42 @@ import {
   getDocs,
   deleteDoc,
   doc,
+  orderBy,
+  where,
+  query,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase/config";
 const useBlogStore = create((set) => ({
   blogs: [],
 
   fetchBlogs: async (userEmail) => {
-    const querySnapshot = await getDocs(collection(db, "blogs"));
-    const blogs = querySnapshot.docs
-      .map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
-      .filter((blog) => blog.userEmail == userEmail);
+    if (!userEmail) return;
+    const q = query(
+      collection(db, "blogs"),
+      where("userEmail", "==", userEmail),
+      orderBy("createdAt", "desc")
+    );
+    const querySnapshot = await getDocs(q);
+    const blogs = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
     set({ blogs });
   },
 
   filterBlogs: async (userEmail, blogId) => {
-    const querySnapshot = await getDocs(collection(db, "blogs"));
+    const q = query(
+      collection(db, "blogs"),
+      where("userEmail", "==", userEmail),
+      orderBy("createdAt", "desc")
+    );
+    const querySnapshot = await getDocs(q);
     const filteredBlogs = querySnapshot.docs
       .map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }))
-      .filter((blog) => blog.userEmail == userEmail && blog.id == blogId);
+      .filter((blog) => blog.id == blogId);
     return filteredBlogs;
   },
 
