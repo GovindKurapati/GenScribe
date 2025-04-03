@@ -1,6 +1,4 @@
 "use client";
-import AuthButton from "../components/AuthButton";
-import Link from "next/link";
 import {
   Box,
   Container,
@@ -9,16 +7,12 @@ import {
   Button,
   Flex,
   VStack,
-  HStack,
   Grid,
   GridItem,
   Icon,
-  keyframes,
-  Toaster,
-  Toast,
-  Spinner,
 } from "@chakra-ui/react";
 import { createStandaloneToast } from "@chakra-ui/toast";
+import { toaster, Toaster } from "../components/ui/toaster";
 
 import { motion } from "framer-motion";
 import { ThemeProvider, useTheme } from "next-themes";
@@ -104,34 +98,20 @@ export default function Home() {
   const handleGetStarted = () => {
     // Logic to handle "Get Started" button click
     if (!user) {
-      toast({
-        title: "Success!",
-        description: "Your action was completed successfully.",
-        status: "success",
+      toaster.create({
+        title: "Login Required",
+        description: "Please login to continue.",
+        type: "warning",
         duration: 5000,
-        isClosable: true,
-        position: "top-right",
+        action: {
+          label: "Close",
+        },
       });
     } else {
       router.push("/dashboard");
     }
   };
   return (
-    // <Box textAlign="center" mt={10}>
-    //   <Heading size="xl">AI Blog Generator</Heading>
-    //   <Text mt={4}>Create AI-generated blogs instantly!</Text>
-    //   <Link href="/dashboard">
-    //     {" "}
-    //     <Button colorScheme="teal" mt={6}>
-    //       Get Started
-    //     </Button>
-    //   </Link>
-
-    //   <Box mt={4}>
-    //     <AuthButton />
-    //   </Box>
-    // </Box>
-
     <Box minHeight="calc(100vh - 220px)">
       <Box
         _before={{
@@ -140,7 +120,7 @@ export default function Home() {
           padding: "16",
         }}
       >
-        {/* <Toaster /> */}
+        <Toaster />
 
         <Container maxW="container.xl" mt={"50px"}>
           <Grid
@@ -182,7 +162,15 @@ export default function Home() {
                       Get Started
                     </Button>
                   ) : (
-                    <AuthButton />
+                    <Button
+                      size="lg"
+                      fontSize="lg"
+                      height="60px"
+                      width="200px"
+                      onClick={handleGetStarted}
+                    >
+                      Get Started
+                    </Button>
                   )}
                 </MotionBox>
               </VStack>

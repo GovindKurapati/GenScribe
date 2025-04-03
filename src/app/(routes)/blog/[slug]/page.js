@@ -25,7 +25,7 @@ import { motion } from "framer-motion";
 
 export default function Blog() {
   const { slug } = useParams();
-  const { filterBlogs } = useBlogStore();
+  const { getBlogById, loading } = useBlogStore();
   const { getUser } = useAuthStore();
   const { email, name, photo } = getUser() || "";
   const [blogData, setBlogData] = useState(null);
@@ -37,13 +37,13 @@ export default function Blog() {
   };
 
   useEffect(() => {
-    if (!slug || !email) return;
+    if (!slug) return;
     const fetchData = async () => {
-      const data = await filterBlogs(email, slug);
+      const data = await getBlogById(slug);
       setBlogData(data[0]);
     };
     fetchData();
-  }, [slug, filterBlogs, email]);
+  }, [slug]);
 
   if (!blogData)
     return (
@@ -88,12 +88,20 @@ export default function Blog() {
                   />
                 </Avatar.Root> */}
                 <Avatar.Root size={"md"} key={"size"}>
-                  <Avatar.Fallback name={name} />
-                  <Avatar.Image src={photo} />
+                  <Avatar.Fallback name={blogData?.userName} />
+                  {blogData?.userPhoto ? (
+                    <Avatar.Image src={blogData.userPhoto} />
+                  ) : (
+                    <Avatar.Image
+                      src={`https://ui-avatars.com/api/?name=${blogData.userEmail}`}
+                    />
+                  )}
                 </Avatar.Root>
                 <VStack align="start" spacing={"0px"} gap={"0px"}>
                   <Text m="0px" fontWeight="medium">
-                    {name}
+                    {blogData?.userName
+                      ? blogData?.userName
+                      : blogData.userEmail}
                   </Text>
                   <Text m="0px" fontSize="sm" color="gray.500">
                     {formatDate(blogData.createdAt)}

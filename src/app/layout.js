@@ -2,8 +2,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Provider } from "@/components/Provider";
 import { Flex } from "@chakra-ui/react";
-import { ColorModeButton } from "@/components/ColorMode";
-import AuthButton from "@/components/AuthButton";
 import { Navbar } from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -35,7 +33,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning="true">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Provider>
           <Flex>

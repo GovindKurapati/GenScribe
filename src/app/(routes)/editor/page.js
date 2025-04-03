@@ -10,17 +10,15 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { BlogEditor } from "@/components/BlogEditor";
 import ProseMirrorEditor from "@/components/PoseMirrorEditor";
+import { toaster, Toaster } from "@/components/ui/toaster";
 
 export default function Editor() {
   const { user } = useAuthStore();
   const { getUser } = useAuthStore();
   const { email } = getUser() || "";
-  const { addBlog } = useBlogStore();
+  const { addBlog, loading } = useBlogStore();
   const router = useRouter();
-
-  const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [summary, setSummary] = useState("");
 
   useEffect(() => {
     if (!email) router.push("/");
@@ -28,6 +26,15 @@ export default function Editor() {
 
   const handleSaveBlog = async () => {
     if (!user) return alert("Please log in first!");
+    toaster.create({
+      title: "Saving Blog",
+      description: "Saving your blog data...",
+      type: "info",
+      duration: 5000,
+      action: {
+        label: "Close",
+      },
+    });
     await addBlog(content, user);
     router.push("/dashboard");
   };
@@ -65,6 +72,8 @@ export default function Editor() {
           <ProseMirrorEditor content={content} onChange={handleBlogData} />
         )}
       </Flex>
+
+      <Toaster />
 
       {content && (
         <Button colorScheme="blue" mt={6} mb={"60px"} onClick={handleSaveBlog}>

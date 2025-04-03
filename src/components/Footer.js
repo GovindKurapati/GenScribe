@@ -22,7 +22,7 @@ const Footer = () => {
           <Flex gap={2}>
             <IconButton
               as={Link}
-              href="https://github.com/GovindKurapati"
+              href="https://github.com/GovindKurapati/GenScribe"
               aria-label="GitHub"
               variant="ghost"
               size="md"
