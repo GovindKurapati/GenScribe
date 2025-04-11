@@ -5,3 +5,61 @@
 .ProseMirror-menubar {
   display: none !important;
 }
+
+/* styles/globals.css */
+
+.ProseMirror {
+  padding: 1em;
+  line-height: 1.6;
+  outline: none;
+}
+
+/* Styles for inline formatting */
+.ProseMirror em {
+  font-style: italic;
+  color: #555;
+}
+
+.ProseMirror strong {
+  font-weight: bold;
+  color: #000;
+}
+
+/* Styles for lists */
+.ProseMirror ol,
+.ProseMirror ul {
+  margin: 1em 0;
+  padding-left: 1.5em;
+}
+
+.ProseMirror li {
+  line-height: 1.8;
+}
+
+/* Optional: style headings if needed */
+.ProseMirror h1 {
+  font-size: 2em;
+  margin-bottom: 0.5em;
+}
+
+.ProseMirror h2 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.ProseMirror code {
+  background: #f5f2f0;
+  color: #c7254e;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
+/* Code block styling */
+.ProseMirror pre {
+  background: #f5f2f0;
+  padding: 1em;
+  overflow: auto;
+  border-radius: 5px;
+  margin: 1em 0;
+}

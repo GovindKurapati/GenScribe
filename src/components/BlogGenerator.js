@@ -20,7 +20,7 @@ export const BlogGenerator = ({ blogData }) => {
   const [loading, setLoading] = useState(false);
 
   const generateBlog = async () => {
-    if (!topic) return alert("Enter a topic first!");
+    // if (!topic) return alert("Enter a topic first!");
     setLoading(true);
     try {
       const data = {

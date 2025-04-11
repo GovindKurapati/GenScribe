@@ -50,6 +50,13 @@ const customTheme = createSystem(defaultConfig, {
         shakeX: { value: "shakeX 0.6s ease forwards" },
       },
     },
+    components: {
+      Button: {
+        baseStyle: {
+          borderRadius: "50px",
+        },
+      },
+    },
   },
   globalCss: {
     "::-moz-selection": {
@@ -108,6 +115,37 @@ const customTheme = createSystem(defaultConfig, {
     },
     ".ProseMirror-menubar": {
       display: "none !important",
+    },
+    ".ProseMirror em": {
+      fontStyle: "italic !important",
+    },
+    ".ProseMirror ul": {
+      margin: "1em 0",
+      paddingLeft: "1.5em",
+      listStyleType: "circle",
+    },
+    ".ProseMirror ol": {
+      margin: "1em 0",
+      paddingLeft: "1.5em",
+      listStyleType: "decimal",
+    },
+    ".ProseMirror li": {
+      lineHeight: "1.8",
+    },
+    ".ProseMirror code": {
+      background: "#f5f2f0",
+      color: "#c7254e",
+      padding: "0.1em",
+      fontSize: "16px",
+      borderRadius: "4px",
+    },
+    ".ProseMirror pre": {
+      background: "#f5f2f0",
+      padding: "1em",
+      overflow: "auto",
+      borderRadius: "5px",
+      margin: "1em 0",
+      fontSize: "16px",
     },
   },
 });

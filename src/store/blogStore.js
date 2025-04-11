@@ -9,6 +9,7 @@ import {
   where,
   query,
   documentId,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase/config";
 
@@ -101,6 +102,28 @@ const useBlogStore = create((set) => ({
       await deleteDoc(doc(db, "blogs", id));
       set((state) => ({
         blogs: state.blogs.filter((blog) => blog.id !== id),
+      }));
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  updateBlog: async (content, id, user) => {
+    set({ loading: true });
+    try {
+      const updatedBlog = {
+        content,
+        userEmail: user.email,
+        userName: user.name,
+        userPhoto: user.photo,
+        createdAt: new Date().toISOString(),
+      };
+
+      await updateDoc(doc(db, "blogs", id), updatedBlog);
+      set((state) => ({
+        blogs: state.blogs.map((blog) =>
+          blog.id === id ? { ...blog, ...updatedBlog } : blog
+        ),
       }));
     } finally {
       set({ loading: false });

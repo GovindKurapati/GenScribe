@@ -22,6 +22,7 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { motion } from "framer-motion";
+import { BlogEditor } from "@/components/BlogEditor";
 
 export default function Blog() {
   const { slug } = useParams();
@@ -128,11 +129,15 @@ export default function Blog() {
                 lineHeight="tall"
                 className="blog-content"
               >
-                <Markdown
+                {/* <Markdown
                   children={blogData.content}
                   remarkPlugins={[remarkGfm]}
                   rehypePlugins={[rehypeRaw]}
-                ></Markdown>
+                ></Markdown> */}
+                <BlogEditor
+                  initialContent={blogData.content}
+                  isEditable={false}
+                />
               </Box>
             </VStack>
           </Container>

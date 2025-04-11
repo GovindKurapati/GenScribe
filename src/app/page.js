@@ -12,12 +12,13 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import { createStandaloneToast } from "@chakra-ui/toast";
-import { toaster, Toaster } from "../components/ui/toaster";
+// import { toaster, Toaster } from "../components/ui/toaster";
 
 import { motion } from "framer-motion";
 import { ThemeProvider, useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import useAuthStore from "@/store/authStore";
+import AuthButton from "@/components/AuthButton";
 
 const MotionBox = motion(Box);
 const toast = createStandaloneToast();
@@ -98,15 +99,15 @@ export default function Home() {
   const handleGetStarted = () => {
     // Logic to handle "Get Started" button click
     if (!user) {
-      toaster.create({
-        title: "Login Required",
-        description: "Please login to continue.",
-        type: "warning",
-        duration: 5000,
-        action: {
-          label: "Close",
-        },
-      });
+      // toaster.create({
+      //   title: "Login Required",
+      //   description: "Please login to continue.",
+      //   type: "warning",
+      //   duration: 5000,
+      //   action: {
+      //     label: "Close",
+      //   },
+      // });
     } else {
       router.push("/dashboard");
     }
@@ -120,7 +121,7 @@ export default function Home() {
           padding: "16",
         }}
       >
-        <Toaster />
+        {/* <Toaster /> */}
 
         <Container maxW="container.xl" mt={"50px"}>
           <Grid
@@ -162,15 +163,7 @@ export default function Home() {
                       Get Started
                     </Button>
                   ) : (
-                    <Button
-                      size="lg"
-                      fontSize="lg"
-                      height="60px"
-                      width="200px"
-                      onClick={handleGetStarted}
-                    >
-                      Get Started
-                    </Button>
+                    <AuthButton />
                   )}
                 </MotionBox>
               </VStack>

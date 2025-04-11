@@ -4,6 +4,7 @@ import { Provider } from "@/components/Provider";
 import { Flex } from "@chakra-ui/react";
 import { Navbar } from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PageProgressLoader from "@/components/PageProgressLoader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +40,7 @@ export default function RootLayout({ children }) {
           <Flex>
             <Navbar />
           </Flex>
+          <PageProgressLoader />
           <main>{children}</main>
           <Footer />
         </Provider>

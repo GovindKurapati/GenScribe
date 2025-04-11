@@ -16,17 +16,22 @@ import {
   Tooltip,
   useToast,
   Popover,
+  Spinner,
+  Center,
 } from "@chakra-ui/react";
-import { FaEye, FaTrash, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaRegEdit } from "react-icons/fa";
+import { FaRegEye } from "react-icons/fa6";
+
 import { useRouter } from "next/navigation";
 import useBlogStore from "@/store/blogStore";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import useAuthStore from "@/store/authStore";
+// import { toaster, Toaster } from "@/components/ui/toaster";
 
 export default function Dashboard() {
-  const { blogs, fetchBlogs, deleteBlog } = useBlogStore();
+  const { blogs, fetchBlogs, deleteBlog, loading } = useBlogStore();
   const { getUser } = useAuthStore();
   const { email } = getUser() || "";
   const router = useRouter();
@@ -37,10 +42,20 @@ export default function Dashboard() {
   }, [email]);
 
   const handleDelete = async (id) => {
-    // Add your delete logic here
-    console.log(`Deleting blog with id: ${id}`);
-
     await deleteBlog(id);
+    // toaster.create({
+    //   title: "Blog Deleted",
+    //   description: "Your blog has been deleted successfully.",
+    //   type: "success",
+    //   duration: 1000,
+    //   action: {
+    //     label: "Close",
+    //   },
+    // });
+  };
+
+  const handleEdit = (id) => {
+    router.push(`/editor/${id}`);
   };
 
   const formatDate = (dateString) => {
@@ -48,51 +63,31 @@ export default function Dashboard() {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return date.toLocaleDateString("en-US", options);
   };
-  // const [blogs, setBlogs] = useState([
-  //   {
-  //     id: 1,
-  //     title:
-  //       "NuxtJS: Your Fast Track to Building Universal Vue.js Applications",
-  //     summary:
-  //       "A comprehensive guide to NuxtJS, exploring its powerful features for building universal Vue.js applications.",
-  //     createdAt: "March 15, 2024",
-  //     wordCount: 1245,
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Understanding Data in the Digital Age",
-  //     summary:
-  //       "Exploring how data drives decision-making in modern technology and business landscapes.",
-  //     createdAt: "February 28, 2024",
-  //     wordCount: 987,
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Java: Still Brewing Strong After All These Years",
-  //     summary:
-  //       "An in-depth look at Java's enduring relevance in enterprise software development.",
-  //     createdAt: "January 10, 2024",
-  //     wordCount: 1532,
-  //   },
-  // ]);
 
   return (
     <Container maxW="container.xl" py={10} minHeight="calc(100vh - 164px)">
+      {/* <Spinner /> */}
+      {/* <Toaster /> */}
+
       <VStack spacing={6} align="stretch">
-        {blogs.length > 0 ? (
-          <VStack spacing={4} align="stretch">
-            <Flex alignItems="center" mb={4}>
-              <Heading size="xl">My Blogs</Heading>
-              <Spacer />
-              <Button
-                colorScheme="blue"
-                size="md"
-                onClick={() => router.push("/editor")}
-              >
-                Generate New Blog
-              </Button>
-            </Flex>
-            {blogs.map((blog) => (
+        <Flex alignItems="center" mb={4}>
+          <Heading size="xl">My Blogs</Heading>
+          <Spacer />
+          <Button
+            colorScheme="blue"
+            size="md"
+            onClick={() => router.push("/editor")}
+          >
+            Generate New Blog
+          </Button>
+        </Flex>
+        {loading && (
+          <Center>
+            <Spinner size="lg" />
+          </Center>
+        )}
+        {!loading && blogs.length > 0
+          ? blogs.map((blog) => (
               <Card.Root
                 key={blog.id}
                 variant="outline"
@@ -119,32 +114,48 @@ export default function Dashboard() {
                       </HStack>
                     </VStack>
                     <HStack ml={4}>
-                      <Box
+                      <Flex
                         position="absolute"
                         right={4}
                         bottom={4}
                         zIndex={"100"}
+                        gap={2}
                       >
                         <Button
                           colorScheme="red"
                           size="sm"
                           onClick={(e) => {
                             e.stopPropagation(); // Prevent parent card click
-                            handleDelete(blog.id);
+                            handleEdit(blog.id);
                           }}
                           leftIcon={<i className="fas fa-trash-alt"></i>}
                           zIndex={10}
                         >
-                          Delete
+                          <FaRegEdit />
+                          Edit
                         </Button>
-                      </Box>
+                        <Button
+                          colorScheme="red"
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation(); // Prevent parent card click
+                            router.push(`/blog/${blog.id}`);
+                          }}
+                          leftIcon={<i className="fas fa-trash-alt"></i>}
+                          zIndex={10}
+                        >
+                          <FaRegEye />
+                          View
+                        </Button>
+                      </Flex>
                     </HStack>
                   </Flex>
                 </Card.Body>
               </Card.Root>
-            ))}
-          </VStack>
-        ) : (
+            ))
+          : null}
+
+        {!loading && blogs.length === 0 ? (
           <Box textAlign="center" py={10} px={6}>
             <Heading size="lg" mb={4}>
               No Blogs Found
@@ -160,7 +171,7 @@ export default function Dashboard() {
               Generate New Blog
             </Button>
           </Box>
-        )}
+        ) : null}
       </VStack>
     </Container>
   );

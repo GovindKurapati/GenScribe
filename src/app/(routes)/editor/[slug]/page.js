@@ -10,18 +10,31 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { BlogEditor } from "@/components/BlogEditor";
 // import { toaster, Toaster } from "@/components/ui/toaster";
+import { useParams } from "next/navigation";
+import { FaRegTrashCan, FaRegSave } from "react-icons/fa6";
 
 export default function Editor() {
+  const { slug } = useParams();
   const { user } = useAuthStore();
   const { getUser } = useAuthStore();
   const { email } = getUser() || "";
-  const { addBlog, loading } = useBlogStore();
+  const { addBlog, getBlogById, loading, updateBlog } = useBlogStore();
   const router = useRouter();
   const [content, setContent] = useState("");
 
   useEffect(() => {
     if (!email) router.push("/");
   }, [email]);
+
+  useEffect(() => {
+    if (!slug) return;
+    const fetchData = async () => {
+      const data = await getBlogById(slug);
+      console.log(data[0]?.content);
+      setContent(data[0]?.content);
+    };
+    fetchData();
+  }, [slug]);
 
   const handleSaveBlog = async (data) => {
     // if (!user) return alert("Please log in first!");
@@ -34,7 +47,7 @@ export default function Editor() {
     //     label: "Close",
     //   },
     // });
-    await addBlog(data, user);
+    await updateBlog(data, slug, user);
     router.push("/dashboard");
   };
 
@@ -62,12 +75,34 @@ export default function Editor() {
       <BlogGenerator blogData={handleBlogData} />
       <Flex maxW="700px" mx="auto" mt={6} textAlign="left" wrap="wrap">
         {content && (
-          <BlogEditor
-            key={content} // Force re-render when content changes
-            initialContent={content}
-            onSave={handleSaveBlog}
-            isEditable={true}
-          />
+          <Box position={"relative"}>
+            <BlogEditor
+              key={content} // Force re-render when content changes
+              initialContent={content}
+              onSave={handleSaveBlog}
+            />
+            <Button
+              position={"absolute"}
+              right={0}
+              bottom={"20px"}
+              variant={"outline"}
+              borderColor={"red.500"}
+              color={"red.500"}
+              w="130px"
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent parent card click
+                handleDelete(blog.id);
+              }}
+              _hover={{
+                bg: "red.500",
+                color: "white",
+              }}
+            >
+              <FaRegTrashCan />
+              Delete
+            </Button>
+          </Box>
         )}
       </Flex>
 
