@@ -18,7 +18,8 @@ export default function Editor() {
   const { user } = useAuthStore();
   const { getUser } = useAuthStore();
   const { email } = getUser() || "";
-  const { addBlog, getBlogById, loading, updateBlog } = useBlogStore();
+  const { addBlog, getBlogById, loading, updateBlog, deleteBlog } =
+    useBlogStore();
   const router = useRouter();
   const [content, setContent] = useState("");
 
@@ -49,6 +50,20 @@ export default function Editor() {
     // });
     await updateBlog(data, slug, user);
     router.push("/dashboard");
+  };
+
+  const handleDelete = async (id) => {
+    await deleteBlog(id);
+    router.push("/dashboard");
+    // toaster.create({
+    //   title: "Blog Deleted",
+    //   description: "Your blog has been deleted successfully.",
+    //   type: "success",
+    //   duration: 1000,
+    //   action: {
+    //     label: "Close",
+    //   },
+    // });
   };
 
   const handleBlogData = (data) => {
@@ -92,7 +107,7 @@ export default function Editor() {
               size="sm"
               onClick={(e) => {
                 e.stopPropagation(); // Prevent parent card click
-                handleDelete(blog.id);
+                handleDelete(slug);
               }}
               _hover={{
                 bg: "red.500",
