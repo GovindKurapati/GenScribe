@@ -1,24 +1,42 @@
-## 📝 GenScribe
+# 📝 GenScribe
 
-A powerful AI-assisted blog generator with a rich text editor.
+A powerful AI-assisted blogging platform with a modern, rich text editor and seamless content management.
 
-### 📌 Features
+![GenScribe Landing Page](./public/GenScribeSS.png)
 
-- ✅ AI-powered blog generation with Gemini API
-- ✅ ProseMirror-based rich-text editor with markdown support
-- ✅ Formatting toolbar with bold, italic, lists, and more
-- ✅ Chakra UI styling for a clean & modern UI
-- ✅ Save & view blog content effortlessly
+![Next.js](https://img.shields.io/badge/Next.js-15-blue)
+![Chakra UI](https://img.shields.io/badge/Chakra--UI-%231AD1A5?logo=chakraui&logoColor=white)
 
-### 🚀 Tech Stack
+---
 
-- Next.js 15 React framework for SSR & performance
-- ProseMirror Feature-rich markdown & WYSIWYG editor
-- Chakra UI Accessible & customizable UI components
-- Zustand Lightweight state management
-- Gemini API AI-powered content generation
+## ✨ Features
 
-## 📦 Installation & Setup
+- **AI-Powered Blog Generation** using **Gemini API**
+- **Rich Text Editor** with TipTap
+- **Formatting Toolbar** with bold, italic, lists, code blocks & more
+- **Chakra UI** for a clean, accessible, and responsive interface
+- **Themes**: Toggle between light and dark mode
+- **Firebase Authentication** for secure user login
+- **Zustand** for lightweight and efficient state management
+- **CRUD Operations**: Easily create, read, update, and delete blogs
+
+---
+
+## 🛠️ Tech Stack
+
+| Tech           | Description                                     |
+| -------------- | ----------------------------------------------- |
+| **Next.js 15** | Server-side rendering and optimized performance |
+| **React 19**   | Modern reactive frontend framework              |
+| **Chakra UI**  | Accessible and customizable UI components       |
+| **TipTap**     | Feature-rich WYSIWYG and Markdown editor        |
+| **Zustand**    | Lightweight global state management             |
+| **Gemini API** | AI-powered content generation                   |
+| **Firebase**   | Authentication and database                     |
+
+---
+
+## 📦 Getting Started
 
 ### 1️⃣ Clone the Repository
 
@@ -33,21 +51,43 @@ cd GenScribe
 npm install
 ```
 
-### 3️⃣ Run the Development Server
+### 3️⃣ Start the Development Server
 
 ```bash
 npm run dev
 ```
 
-Your app will be live at [http://localhost:3000]([http://localhost:3000) 🚀
+Your app will be live at **[http://localhost:3000](http://localhost:3000)** 🚀
 
-## 🖋 Usage
+---
 
-### 📌 Creating a Blog Post
+## 🖋 Usage Guide
 
-- 1️⃣ Generate content using the AI Gemini API
-- 2️⃣ Edit using the ProseMirror editor
-- 3️⃣ Format your text with the toolbar
-- 4️⃣ Save your blog post for future updates
+1. **Generate** content using the Gemini API
+2. **Edit** with TipTap's rich text editor
+3. **Format** using the intuitive toolbar
+4. **Save & Manage** your blog posts with ease
+5. **Like & Share** your blogs with others
 
-⭐ If you like this project, don’t forget to give it a star! ⭐
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!  
+Feel free to check the [issues page](https://github.com/GovindKurapati/GenScribe/issues) or open a [pull request](https://github.com/GovindKurapati/GenScribe/pulls).
+
+---
+
+## ⭐ Support
+
+If you find this project helpful, please consider giving it a ⭐️ and sharing it!
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+> Built with ❤️ by [Govind Kurapati](https://github.com/GovindKurapati)
