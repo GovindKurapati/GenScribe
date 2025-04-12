@@ -173,7 +173,10 @@ export const Navbar = () => {
             </Heading>
           </Flex>
 
-          <HStack spacing={4}>
+          <HStack spacing={4} align={"center"}>
+            <Link href="/blog" m={0}>
+              All Blogs
+            </Link>
             <ColorModeButton />
             <AuthButton />
           </HStack>

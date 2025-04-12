@@ -18,8 +18,10 @@ import {
   Popover,
   Spinner,
   Center,
+  Switch,
+  Icon,
 } from "@chakra-ui/react";
-import { FaRegEdit } from "react-icons/fa";
+import { FaRegEdit, FaGlobe, FaLock } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa6";
 
 import { useRouter } from "next/navigation";
@@ -28,10 +30,11 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import useAuthStore from "@/store/authStore";
-// import { toaster, Toaster } from "@/components/ui/toaster";
+import { toaster, Toaster } from "@/components/ui/toaster";
 
 export default function Dashboard() {
-  const { blogs, fetchBlogs, deleteBlog, loading } = useBlogStore();
+  const { blogs, fetchBlogs, deleteBlog, updateBlogVisibility, loading } =
+    useBlogStore();
   const { getUser } = useAuthStore();
   const { email } = getUser() || "";
   const router = useRouter();
@@ -64,10 +67,37 @@ export default function Dashboard() {
     return date.toLocaleDateString("en-US", options);
   };
 
+  const handleVisibilityChange = async (e, blogId, currentStatus) => {
+    // e.stopPropagation(); // Prevent card click
+    console.log(blogId, currentStatus);
+    const newStatus = !currentStatus;
+    console.log(blogId, newStatus);
+
+    try {
+      await updateBlogVisibility(blogId, newStatus);
+      toaster.create({
+        title: `Blog is now ${newStatus ? "public" : "private"}`,
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+        type: "success",
+      });
+    } catch (error) {
+      toaster.create({
+        title: "Failed to update visibility",
+        description: error.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        type: "error",
+      });
+    }
+  };
+
   return (
     <Container maxW="container.xl" py={10} minHeight="calc(100vh - 164px)">
       {/* <Spinner /> */}
-      {/* <Toaster /> */}
+      <Toaster />
 
       <VStack spacing={6} align="stretch">
         <Flex alignItems="center" mb={4}>
@@ -99,9 +129,10 @@ export default function Dashboard() {
                   cursor: "pointer",
                 }}
                 onClick={() => router.push(`/blog/${blog.id}`)}
+                position={"relative"}
               >
-                <Card.Body>
-                  <Flex alignItems="center">
+                <Card.Body w={"100%"} minHeight={"150px"}>
+                  <Flex alignItems="center" width={"70%"}>
                     <VStack align="start" spacing={2} flex={1}>
                       <Heading size="md">{blog.title}</Heading>
                       <Markdown
@@ -113,11 +144,42 @@ export default function Dashboard() {
                         <Text>{formatDate(blog.createdAt)}</Text>
                       </HStack>
                     </VStack>
+                    <Flex
+                      alignItems={"start"}
+                      position={"absolute"}
+                      right={3}
+                      top={10}
+                      p={1}
+                      borderRadius="md"
+                      mr={2}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <Switch.Root
+                        size={"lg"}
+                        checked={blog?.public}
+                        onCheckedChange={(e) =>
+                          handleVisibilityChange(e, blog.id, blog.public)
+                        }
+                      >
+                        <Switch.HiddenInput />
+                        <Switch.Control>
+                          <Switch.Thumb>
+                            <Switch.ThumbIndicator
+                              fallback={<FaLock color="black" />}
+                            >
+                              <FaGlobe />
+                            </Switch.ThumbIndicator>
+                          </Switch.Thumb>
+                        </Switch.Control>
+                        <Switch.Label>Public</Switch.Label>
+                      </Switch.Root>
+                    </Flex>
+
                     <HStack ml={4}>
                       <Flex
                         position="absolute"
-                        right={4}
-                        bottom={4}
+                        right={5}
+                        bottom={8}
                         zIndex={"100"}
                         gap={2}
                       >

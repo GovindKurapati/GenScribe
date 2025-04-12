@@ -16,6 +16,8 @@ import {
   Separator,
   SkeletonCircle,
   SkeletonText,
+  Flex,
+  IconButton,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Markdown from "react-markdown";
@@ -23,10 +25,12 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { motion } from "framer-motion";
 import { BlogEditor } from "@/components/BlogEditor";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { Toaster, toaster } from "@/components/ui/toaster";
 
 export default function Blog() {
   const { slug } = useParams();
-  const { getBlogById, loading } = useBlogStore();
+  const { getBlogById, updateLikes, loading } = useBlogStore();
   const { getUser } = useAuthStore();
   const { email, name, photo } = getUser() || "";
   const [blogData, setBlogData] = useState(null);
@@ -46,6 +50,39 @@ export default function Blog() {
     fetchData();
   }, [slug]);
 
+  const handleLike = async (userEmail) => {
+    if (!userEmail) {
+      toaster.create({
+        title: "Login Required",
+        description: "Please log in to like this blog.",
+        type: "error",
+        duration: 2000,
+        action: {
+          label: "Close",
+        },
+      });
+      return;
+    }
+    if (!blogData) return;
+    try {
+      await updateLikes(slug, userEmail);
+      setBlogData((prevData) => {
+        const alreadyLiked = prevData.likedBy?.includes(userEmail);
+        return {
+          ...prevData,
+          likes: alreadyLiked
+            ? (prevData.likes || 0) - 1
+            : (prevData.likes || 0) + 1,
+          likedBy: alreadyLiked
+            ? prevData.likedBy.filter((email) => email !== userEmail)
+            : [...(prevData.likedBy || []), userEmail],
+        };
+      });
+    } catch (error) {
+      console.error("Error liking blog:", error);
+    }
+  };
+
   if (!blogData)
     return (
       <Box minH="100vh" py={12}>
@@ -61,7 +98,7 @@ export default function Blog() {
   return (
     <>
       <Head>
-        <title>{"title"}</title>
+        <title>{blogData.title || "Blog"}</title>
         <meta name="description" content={blogData.content} />
       </Head>
 
@@ -70,24 +107,19 @@ export default function Blog() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
+        <Toaster />
         <Box minH="100vh" py={12} minHeight="calc(100vh - 164px)">
           <Container maxW="4xl">
             <VStack spacing={8} align="start">
               {/* Header */}
-              <Box w="full">
+              {/* <Box w="full">
                 <Badge bgColor={"secondary"} mb={3}>
                   Blog
                 </Badge>
-              </Box>
+              </Box> */}
 
               {/* Author and date */}
               <HStack spacing={2} gap={4}>
-                {/* <Avatar.Root >
-                  <Avatar.Fallback name="Segun Adebayo" />
-                  <Avatar.Image
-                    src={`https://ui-avatars.com/api/?name=${name}`}
-                  />
-                </Avatar.Root> */}
                 <Avatar.Root size={"md"} key={"size"}>
                   <Avatar.Fallback name={blogData?.userName} />
                   {blogData?.userPhoto ? (
@@ -113,32 +145,38 @@ export default function Blog() {
               <Separator w={"100%"} />
 
               {/* Summary */}
-              <Text
+              {/* <Text
                 fontSize="xl"
                 fontWeight="medium"
                 color={"red"}
                 fontStyle="italic"
               >
-                {/* {post.summary} */}
-              </Text>
+                {post.summary}
+              </Text> */}
 
               {/* Main content */}
-              <Box
-                w="full"
-                fontSize="lg"
-                lineHeight="tall"
-                className="blog-content"
-              >
-                {/* <Markdown
-                  children={blogData.content}
-                  remarkPlugins={[remarkGfm]}
-                  rehypePlugins={[rehypeRaw]}
-                ></Markdown> */}
+              <Box w="full" fontSize="lg" className="blog-content">
                 <BlogEditor
                   initialContent={blogData.content}
                   isEditable={false}
                 />
               </Box>
+              <Flex alignItems="center" gap={1} _hover={{ cursor: "default" }}>
+                <IconButton
+                  variant={"ghost"}
+                  size="md"
+                  onClick={() => handleLike(email)}
+                >
+                  {blogData.likedBy?.includes(email) ? (
+                    <FaHeart color="red" />
+                  ) : (
+                    <FaRegHeart />
+                  )}
+                </IconButton>
+                <Text m={0} fontSize={"18px"}>
+                  {blogData.likes || 0}
+                </Text>
+              </Flex>
             </VStack>
           </Container>
         </Box>

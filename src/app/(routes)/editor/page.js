@@ -9,7 +9,7 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { BlogEditor } from "@/components/BlogEditor";
-// import { toaster, Toaster } from "@/components/ui/toaster";
+import { toaster, Toaster } from "@/components/ui/toaster";
 
 export default function Editor() {
   const { user } = useAuthStore();
@@ -25,15 +25,15 @@ export default function Editor() {
 
   const handleSaveBlog = async (data) => {
     // if (!user) return alert("Please log in first!");
-    // toaster.create({
-    //   title: "Saving Blog",
-    //   description: "Saving your blog data...",
-    //   type: "info",
-    //   duration: 5000,
-    //   action: {
-    //     label: "Close",
-    //   },
-    // });
+    toaster.create({
+      title: "Saving Blog",
+      description: "Saving your blog data...",
+      type: "info",
+      duration: 5000,
+      action: {
+        label: "Close",
+      },
+    });
     await addBlog(data, user);
     router.push("/dashboard");
   };
@@ -71,7 +71,7 @@ export default function Editor() {
         )}
       </Flex>
 
-      {/* <Toaster /> */}
+      <Toaster />
     </Box>
   );
 }

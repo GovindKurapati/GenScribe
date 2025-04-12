@@ -19,7 +19,7 @@ const customTheme = createSystem(defaultConfig, {
         },
         secondary: {
           DEFAULT: {
-            value: { _light: "#DCDFE4", _dark: "#2B2B2C" }, // Custom dark text color
+            value: { _light: "#a1a1aa", _dark: "#2B2B2C" }, // Custom dark text color
           },
         },
         tertiary: {
@@ -104,6 +104,11 @@ const customTheme = createSystem(defaultConfig, {
     },
     ".ProseMirror": {
       outline: "none !important",
+      width: "100%",
+    },
+    ".ProseMirror p": {
+      width: "100%",
+      whiteSpace: "pre-line",
     },
     ".ProseMirror:focus": {
       outline: "none !important",

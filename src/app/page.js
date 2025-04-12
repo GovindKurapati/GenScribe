@@ -109,7 +109,7 @@ export default function Home() {
       //   },
       // });
     } else {
-      router.push("/dashboard");
+      router.push("/editor");
     }
   };
   return (

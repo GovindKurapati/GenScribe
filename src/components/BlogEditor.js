@@ -82,7 +82,7 @@ export const BlogEditor = ({
   };
 
   return (
-    <Box>
+    <Box w={"100%"}>
       <Box
         className="editor-container"
         // border={isEditable ? "1px solid #E2E8F0" : "none"}
@@ -93,7 +93,7 @@ export const BlogEditor = ({
         w="100%"
       >
         {isEditable && (
-          <Flex gap={2} my={2} mb={6} wrap={"wrap"}>
+          <Flex w="100%" gap={2} my={2} mb={6} wrap={"wrap"}>
             <ButtonGroup spacing="2">
               <IconButton
                 aria-label="Bold"

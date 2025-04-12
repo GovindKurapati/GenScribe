@@ -9,7 +9,7 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { BlogEditor } from "@/components/BlogEditor";
-// import { toaster, Toaster } from "@/components/ui/toaster";
+import { toaster, Toaster } from "@/components/ui/toaster";
 import { useParams } from "next/navigation";
 import { FaRegTrashCan, FaRegSave } from "react-icons/fa6";
 
@@ -39,15 +39,15 @@ export default function Editor() {
 
   const handleSaveBlog = async (data) => {
     // if (!user) return alert("Please log in first!");
-    // toaster.create({
-    //   title: "Saving Blog",
-    //   description: "Saving your blog data...",
-    //   type: "info",
-    //   duration: 5000,
-    //   action: {
-    //     label: "Close",
-    //   },
-    // });
+    toaster.create({
+      title: "Saving Blog",
+      description: "Saving your blog data...",
+      type: "info",
+      duration: 1000,
+      action: {
+        label: "Close",
+      },
+    });
     await updateBlog(data, slug, user);
     router.push("/dashboard");
   };
@@ -55,15 +55,15 @@ export default function Editor() {
   const handleDelete = async (id) => {
     await deleteBlog(id);
     router.push("/dashboard");
-    // toaster.create({
-    //   title: "Blog Deleted",
-    //   description: "Your blog has been deleted successfully.",
-    //   type: "success",
-    //   duration: 1000,
-    //   action: {
-    //     label: "Close",
-    //   },
-    // });
+    toaster.create({
+      title: "Blog Deleted",
+      description: "Your blog has been deleted successfully.",
+      type: "success",
+      duration: 1000,
+      action: {
+        label: "Close",
+      },
+    });
   };
 
   const handleBlogData = (data) => {
@@ -90,7 +90,7 @@ export default function Editor() {
       <BlogGenerator blogData={handleBlogData} />
       <Flex maxW="700px" mx="auto" mt={6} textAlign="left" wrap="wrap">
         {content && (
-          <Box position={"relative"}>
+          <Box position={"relative"} w={"100%"}>
             <BlogEditor
               key={content} // Force re-render when content changes
               initialContent={content}
@@ -121,7 +121,7 @@ export default function Editor() {
         )}
       </Flex>
 
-      {/* <Toaster /> */}
+      <Toaster />
     </Box>
   );
 }
