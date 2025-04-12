@@ -33,6 +33,7 @@ import {
 import { marked } from "marked";
 import { useEffect } from "react";
 import { FaRegSave } from "react-icons/fa";
+import DOMPurify from "dompurify";
 
 export const BlogEditor = ({
   initialContent = "## hi",
@@ -74,9 +75,9 @@ export const BlogEditor = ({
 
   const handleSave = () => {
     if (editor && onSave) {
-      // Editor content is already HTML.
-      console.log("Editor content:", editor.getHTML());
-      onSave(editor.getHTML());
+      const rawHTML = editor.getHTML();
+      const safeHTML = DOMPurify.sanitize(rawHTML);
+      onSave(safeHTML);
     }
   };
 

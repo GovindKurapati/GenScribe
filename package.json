@@ -26,6 +26,7 @@
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
     "axios": "^1.8.3",
+    "dompurify": "^3.2.5",
     "firebase": "^11.4.0",
     "framer-motion": "^12.5.0",
     "markdown-it": "^12.3.2",
