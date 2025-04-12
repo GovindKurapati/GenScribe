@@ -2,10 +2,9 @@
 
 A powerful AI-assisted blogging platform with a modern, rich text editor and seamless content management.
 
-![GenScribe Landing Page](./public/GenScribeSS.png)
+[![GenScribe Landing Page](https://raw.githubusercontent.com/GovindKurapati/GenScribe/main/public/GenScribeSS.png)](https://gen-scribe.govind-kurapati.com/)
 
-![Next.js](https://img.shields.io/badge/Next.js-15-blue)
-![Chakra UI](https://img.shields.io/badge/Chakra--UI-%231AD1A5?logo=chakraui&logoColor=white)
+[![Website](https://img.shields.io/badge/Visit-GenScribe-blue?style=for-the-badge)](https://gen-scribe.govind-kurapati.com/)
 
 ---
 
