@@ -166,7 +166,7 @@ export const Navbar = () => {
       <Container maxW="container.xl">
         <Flex py={4} justify="space-between" align="center">
           <Flex align="center">
-            <Icon as={BrainIcon} boxSize={6} mr={2} color="accent.default" />
+            {/* <Icon as={BrainIcon} boxSize={6} mr={2} color="accent.default" /> */}
 
             <Heading size="xl" fontWeight="bold">
               <Link href="/">GenScribe</Link>

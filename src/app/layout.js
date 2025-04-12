@@ -20,7 +20,7 @@ export const metadata = {
   title: "GenScribe",
   description: "GenScribe is a platform for writing blog using AI.",
   authors: [{ name: "Govind Kurapati" }],
-  keywords: [],
+  keywords: ["AI", "blogging", "content creation", "writing", "GenScribe"],
   robots: "index, follow",
   openGraph: {
     type: "website",
@@ -29,6 +29,14 @@ export const metadata = {
     site_name: "GenScribe",
     title: "GenScribe",
     description: "Platform for generating and editing blog using AI ",
+    images: [
+      {
+        url: "https://gen-scribe.govind-kurapati.com/genScribe.png",
+        width: 1200,
+        height: 630,
+        alt: "GenScribe Open Graph Image",
+      },
+    ],
   },
 };
 
