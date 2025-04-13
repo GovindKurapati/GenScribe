@@ -27,8 +27,7 @@ import useAuthStore from "@/store/authStore";
 import { toaster, Toaster } from "@/components/ui/toaster";
 
 export default function Dashboard() {
-  const { blogs, fetchBlogs, deleteBlog, updateBlogVisibility, loading } =
-    useBlogStore();
+  const { blogs, fetchBlogs, updateBlogVisibility, loading } = useBlogStore();
   const { getUser } = useAuthStore();
   const { email } = getUser() || "";
   const router = useRouter();

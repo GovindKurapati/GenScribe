@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from "react";
 import {
-  Box,
-  Button,
   Flex,
   Heading,
   Text,
@@ -28,15 +26,17 @@ import {
   FaTrashAlt,
 } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
-
 import { toaster, Toaster } from "@/components/ui/toaster";
 import useAuthStore from "@/store/authStore";
+import { CustomDialog } from "@/components/ui/dialog";
 
 export default function Blog() {
   const [blogs, setBlogs] = useState([]);
   const router = useRouter();
   const { fetchPublicBlogs, deleteBlog, loading } = useBlogStore();
   const { user } = useAuthStore();
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedBlogId, setSelectedBlogId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -172,7 +172,8 @@ export default function Blog() {
                         _hover={{ cursor: "pointer" }}
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleDelete(blog.id);
+                          setSelectedBlogId(blog.id);
+                          setOpenDialog(true);
                         }}
                       >
                         <FaTrashAlt />
@@ -186,6 +187,17 @@ export default function Blog() {
           </Flex>
         ))}
       </Flex>
+      <CustomDialog
+        isOpen={openDialog}
+        onClose={() => setOpenDialog(false)}
+        header={"Are you sure?"}
+        body={"This blog will be deleted permanently."}
+        successAction={() => {
+          handleDelete(selectedBlogId);
+          setOpenDialog(false);
+          setSelectedBlogId(null);
+        }}
+      />
     </Container>
   );
 }

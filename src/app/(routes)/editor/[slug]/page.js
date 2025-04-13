@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Box, Button, Input, Flex, Textarea, Heading } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 import useAuthStore from "@/store/authStore";
 import useBlogStore from "@/store/blogStore";
 import { useRouter } from "next/navigation";
@@ -8,7 +8,8 @@ import { BlogGenerator } from "@/components/BlogGenerator";
 import { BlogEditor } from "@/components/BlogEditor";
 import { toaster, Toaster } from "@/components/ui/toaster";
 import { useParams } from "next/navigation";
-import { FaRegTrashCan, FaRegSave } from "react-icons/fa6";
+import { FaRegTrashCan } from "react-icons/fa6";
+import { CustomDialog } from "@/components/ui/dialog";
 
 export default function Editor() {
   const { slug } = useParams();
@@ -18,6 +19,7 @@ export default function Editor() {
   const { getBlogById, loading, updateBlog, deleteBlog } = useBlogStore();
   const router = useRouter();
   const [content, setContent] = useState("");
+  const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
     if (!email) router.push("/");
@@ -102,7 +104,7 @@ export default function Editor() {
               size="sm"
               onClick={(e) => {
                 e.stopPropagation(); // Prevent parent card click
-                handleDelete(slug);
+                setOpenDialog(true);
               }}
               _hover={{
                 bg: "red.500",
@@ -115,6 +117,16 @@ export default function Editor() {
           </Box>
         )}
       </Flex>
+      <CustomDialog
+        isOpen={openDialog}
+        onClose={() => setOpenDialog(false)}
+        header={"Are you sure?"}
+        body={"This blog will be deleted permanently."}
+        successAction={() => {
+          handleDelete(slug);
+          setOpenDialog(false);
+        }}
+      />
 
       <Toaster />
     </Box>

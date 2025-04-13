@@ -26,7 +26,7 @@ export default function Editor() {
       title: "Saving Blog",
       description: "Saving your blog data...",
       type: "info",
-      duration: 2000,
+      duration: 1000,
       action: {
         label: "Close",
       },
