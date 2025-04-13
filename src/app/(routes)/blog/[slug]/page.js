@@ -7,12 +7,10 @@ import useAuthStore from "@/store/authStore";
 import {
   Box,
   Container,
-  Heading,
   Text,
   HStack,
   Avatar,
   VStack,
-  Badge,
   Separator,
   SkeletonCircle,
   SkeletonText,
@@ -20,9 +18,6 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import Head from "next/head";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
 import { motion } from "framer-motion";
 import { BlogEditor } from "@/components/BlogEditor";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -111,13 +106,6 @@ export default function Blog() {
         <Box minH="100vh" py={12} minHeight="calc(100vh - 164px)">
           <Container maxW="4xl">
             <VStack spacing={8} align="start">
-              {/* Header */}
-              {/* <Box w="full">
-                <Badge bgColor={"secondary"} mb={3}>
-                  Blog
-                </Badge>
-              </Box> */}
-
               {/* Author and date */}
               <HStack spacing={2} gap={4}>
                 <Avatar.Root size={"md"} key={"size"}>
@@ -143,16 +131,6 @@ export default function Blog() {
               </HStack>
 
               <Separator w={"100%"} />
-
-              {/* Summary */}
-              {/* <Text
-                fontSize="xl"
-                fontWeight="medium"
-                color={"red"}
-                fontStyle="italic"
-              >
-                {post.summary}
-              </Text> */}
 
               {/* Main content */}
               <Box w="full" fontSize="lg" className="blog-content">

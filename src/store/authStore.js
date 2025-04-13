@@ -16,7 +16,6 @@ const useAuthStore = create((set) => ({
           photo: user.photoURL,
         },
       });
-      console.log("Login successful");
     } catch (error) {
       console.error("Login failed:", error);
     }

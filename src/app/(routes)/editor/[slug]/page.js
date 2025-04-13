@@ -5,9 +5,6 @@ import useAuthStore from "@/store/authStore";
 import useBlogStore from "@/store/blogStore";
 import { useRouter } from "next/navigation";
 import { BlogGenerator } from "@/components/BlogGenerator";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
 import { BlogEditor } from "@/components/BlogEditor";
 import { toaster, Toaster } from "@/components/ui/toaster";
 import { useParams } from "next/navigation";
@@ -18,8 +15,7 @@ export default function Editor() {
   const { user } = useAuthStore();
   const { getUser } = useAuthStore();
   const { email } = getUser() || "";
-  const { addBlog, getBlogById, loading, updateBlog, deleteBlog } =
-    useBlogStore();
+  const { getBlogById, loading, updateBlog, deleteBlog } = useBlogStore();
   const router = useRouter();
   const [content, setContent] = useState("");
 
@@ -31,7 +27,6 @@ export default function Editor() {
     if (!slug) return;
     const fetchData = async () => {
       const data = await getBlogById(slug);
-      console.log(data[0]?.content);
       setContent(data[0]?.content);
     };
     fetchData();

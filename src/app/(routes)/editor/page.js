@@ -5,9 +5,6 @@ import useAuthStore from "@/store/authStore";
 import useBlogStore from "@/store/blogStore";
 import { useRouter } from "next/navigation";
 import { BlogGenerator } from "@/components/BlogGenerator";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
 import { BlogEditor } from "@/components/BlogEditor";
 import { toaster, Toaster } from "@/components/ui/toaster";
 
@@ -29,7 +26,7 @@ export default function Editor() {
       title: "Saving Blog",
       description: "Saving your blog data...",
       type: "info",
-      duration: 5000,
+      duration: 2000,
       action: {
         label: "Close",
       },

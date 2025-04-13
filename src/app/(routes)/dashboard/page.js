@@ -11,15 +11,9 @@ import {
   Spacer,
   Container,
   Card,
-  CardBody,
-  CardHeader,
-  Tooltip,
-  useToast,
-  Popover,
   Spinner,
   Center,
   Switch,
-  Icon,
 } from "@chakra-ui/react";
 import { FaRegEdit, FaGlobe, FaLock } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa6";
@@ -44,19 +38,6 @@ export default function Dashboard() {
     fetchBlogs(email);
   }, [email]);
 
-  const handleDelete = async (id) => {
-    await deleteBlog(id);
-    // toaster.create({
-    //   title: "Blog Deleted",
-    //   description: "Your blog has been deleted successfully.",
-    //   type: "success",
-    //   duration: 1000,
-    //   action: {
-    //     label: "Close",
-    //   },
-    // });
-  };
-
   const handleEdit = (id) => {
     router.push(`/editor/${id}`);
   };
@@ -69,9 +50,7 @@ export default function Dashboard() {
 
   const handleVisibilityChange = async (e, blogId, currentStatus) => {
     // e.stopPropagation(); // Prevent card click
-    console.log(blogId, currentStatus);
     const newStatus = !currentStatus;
-    console.log(blogId, newStatus);
 
     try {
       await updateBlogVisibility(blogId, newStatus);

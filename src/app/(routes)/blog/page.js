@@ -20,39 +20,32 @@ import useBlogStore from "@/store/blogStore";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import { FaCircle, FaRegHeart, FaEllipsisV, FaLink } from "react-icons/fa";
+import {
+  FaCircle,
+  FaRegHeart,
+  FaEllipsisV,
+  FaLink,
+  FaTrashAlt,
+} from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
+
 import { toaster, Toaster } from "@/components/ui/toaster";
+import useAuthStore from "@/store/authStore";
 
 export default function Blog() {
   const [blogs, setBlogs] = useState([]);
   const router = useRouter();
-  const { fetchPublicBlogs, loading } = useBlogStore();
+  const { fetchPublicBlogs, deleteBlog, loading } = useBlogStore();
+  const { user } = useAuthStore();
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchPublicBlogs();
-      console.log(data);
       setBlogs(data);
     };
     fetchData();
   }, []);
 
-  // Increase the likes count in Firestore and update local state.
-  const handleLike = async (blogId) => {
-    try {
-      //   const blogRef = doc(db, "blogs", blogId);
-      //   await updateDoc(blogRef, {
-      //     likes: increment(1),
-      //   });
-      //   setBlogs((prevBlogs) =>
-      //     prevBlogs.map((blog) =>
-      //       blog.id === blogId ? { ...blog, likes: (blog.likes || 0) + 1 } : blog
-      //     )
-      //   );
-    } catch (error) {
-      console.error("Error liking blog:", error);
-    }
-  };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -70,6 +63,20 @@ export default function Blog() {
         duration: 2000,
         isClosable: true,
       });
+    });
+  };
+
+  const handleDelete = async (id) => {
+    await deleteBlog(id);
+    setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.id !== id));
+    toaster.create({
+      title: "Blog Deleted",
+      description: "Your blog has been deleted successfully.",
+      type: "success",
+      duration: 1000,
+      action: {
+        label: "Close",
+      },
     });
   };
 
@@ -146,6 +153,32 @@ export default function Blog() {
                       <FaLink />
                       Share
                     </Menu.Item>
+                    {user?.email === blog.userEmail && (
+                      <Menu.Item
+                        value="edit"
+                        _hover={{ cursor: "pointer" }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          router.push(`/editor/${blog.id}`);
+                        }}
+                      >
+                        <MdEdit />
+                        Edit
+                      </Menu.Item>
+                    )}
+                    {user?.email === blog.userEmail && (
+                      <Menu.Item
+                        value="delete"
+                        _hover={{ cursor: "pointer" }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(blog.id);
+                        }}
+                      >
+                        <FaTrashAlt />
+                        Delete
+                      </Menu.Item>
+                    )}
                   </Menu.Content>
                 </Menu.Positioner>
               </Portal>

@@ -13,14 +13,7 @@ import Underline from "@tiptap/extension-underline";
 import Italic from "@tiptap/extension-italic";
 import Text from "@tiptap/extension-text";
 import Strike from "@tiptap/extension-strike";
-import {
-  Box,
-  Button,
-  Tooltip,
-  IconButton,
-  Flex,
-  ButtonGroup,
-} from "@chakra-ui/react";
+import { Box, Button, IconButton, Flex, ButtonGroup } from "@chakra-ui/react";
 import {
   FaBold,
   FaCode,
@@ -44,17 +37,7 @@ export const BlogEditor = ({
   const editor = useEditor({
     extensions: [
       Markdown,
-      CodeBlock,
-      Document,
-      Paragraph,
-      Text,
-      HardBreak,
-      BulletList,
-      OrderedList,
-      ListItem,
       Underline,
-      Italic,
-      Strike,
       StarterKit.configure({
         // Ensure italic is not disabled
         italic: true,
@@ -63,6 +46,7 @@ export const BlogEditor = ({
     content: htmlContent,
     autofocus: false,
     editable: isEditable,
+    immediatelyRender: false,
   });
 
   // If the parent sends new markdown content, update the editor.

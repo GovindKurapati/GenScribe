@@ -153,7 +153,6 @@ const useBlogStore = create((set) => ({
   },
 
   updateBlogVisibility: async (id, isPublic) => {
-    console.log(id, isPublic);
     set({ loading: true });
     try {
       await updateDoc(doc(db, "blogs", id), { public: isPublic });
