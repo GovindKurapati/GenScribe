@@ -23,6 +23,7 @@ export default function Editor() {
   const handleSaveBlog = async (data) => {
     // if (!user) return alert("Please log in first!");
     toaster.create({
+      id: "saving",
       title: "Saving Blog",
       description: "Saving your blog data...",
       type: "info",

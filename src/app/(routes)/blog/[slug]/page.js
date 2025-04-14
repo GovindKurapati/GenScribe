@@ -48,6 +48,7 @@ export default function Blog() {
   const handleLike = async (userEmail) => {
     if (!userEmail) {
       toaster.create({
+        id: "login-required",
         title: "Login Required",
         description: "Please log in to like this blog.",
         type: "error",

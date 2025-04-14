@@ -54,6 +54,7 @@ export default function Dashboard() {
     try {
       await updateBlogVisibility(blogId, newStatus);
       toaster.create({
+        id: "visibility",
         title: `Blog is now ${newStatus ? "public" : "private"}`,
         status: "success",
         duration: 2000,
@@ -62,6 +63,7 @@ export default function Dashboard() {
       });
     } catch (error) {
       toaster.create({
+        id: "error",
         title: "Failed to update visibility",
         description: error.message,
         status: "error",

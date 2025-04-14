@@ -57,6 +57,7 @@ export default function Blog() {
     const url = `${window.location.origin}/blog/${id}`;
     navigator.clipboard.writeText(url).then(() => {
       toaster.create({
+        id: "link-copied",
         title: "Link copied!",
         description: "The blog link has been copied to your clipboard.",
         type: "success",
@@ -70,6 +71,7 @@ export default function Blog() {
     await deleteBlog(id);
     setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.id !== id));
     toaster.create({
+      id: "blog-deleted",
       title: "Blog Deleted",
       description: "Your blog has been deleted successfully.",
       type: "success",
