@@ -5,6 +5,7 @@ import { Flex } from "@chakra-ui/react";
 import { Navbar } from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageProgressLoader from "@/components/PageProgressLoader";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning="true">
+      <head>
+        {process.env.NODE_ENV == "production" && (
+          <Script
+            async
+            defer
+            data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+            src={process.env.NEXT_PUBLIC_UMAMI_SRC}
+            strategy="afterInteractive"
+          />
+        )}
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Provider>
           <Flex>
